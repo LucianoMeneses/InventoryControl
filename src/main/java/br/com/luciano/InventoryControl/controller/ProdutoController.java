@@ -49,6 +49,12 @@ public class ProdutoController {
 		
 		Produto produto = form.converter(categoriaRepository);
 		
+		if(produto.getCategoria() == null) {
+			
+			return ResponseEntity.notFound().build();
+					
+		}
+		
 		produtoRepository.save(produto);
 		
 		URI uri = uriBuilder.path("produtos/{id}").buildAndExpand(produto.getId()).toUri();
